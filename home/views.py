@@ -19,3 +19,29 @@ class RentItemsView(View):
         items = RentItems.objects.all()
         return render(request,'rent_items.html',{'items':items})
 
+
+@method_decorator(login_required, name='dispatch')
+class PlaceOrderView(View):
+    def get(self,request,id):
+        qnty = request.GET.get("qnty")
+        return render(request,'address.html')
+    
+    def post(self,request,id):
+        name = request.POST.get("name")
+        phone = request.POST.get("phone")
+        address = request.POST.get("address")
+        no_of_days = request.POST.get("no_of_days")
+        qnty = request.GET.get("qnty")
+
+        acc = Account.objects.get(user=request.user)
+        item = RentItems.objects.get(id=id)
+        RentOrder.objects.create(user=acc,item=item,quantity=qnty,no_of_days=no_of_days,name=name,phone=phone,address=address)
+
+        return redirect("/")
+
+
+@method_decorator(login_required, name='dispatch')
+class MyOrdersView(View):
+    def get(self,request):
+        
+        return render()

@@ -1,0 +1,16 @@
+USER END
+
+-> When click on buy plans need to show PG and then download the file 
+-> Rent Items pending - DONE
+-> My Orders Section to show rent items
+
+
+ARCHITECT
+
+-> Manage Appointments
+-> Manage plans
+
+
+CONTRACTOR
+
+-> Manage Appointment

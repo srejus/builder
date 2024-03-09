@@ -8,6 +8,7 @@ class RentAdmin(admin.ModelAdmin):
 
 
 admin.site.register(RentItems,RentAdmin)
+admin.site.register(RentOrder)
 
 
 

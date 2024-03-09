@@ -65,38 +65,25 @@
             </div>
          </div>
       </header>
-      <style>
-         .mrow{
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-         }
-      </style>
       <!-- end header -->
-      <br><br><br>
+
       <div class="main">
-         
-         <div class="mrow">
-            {% for i in items %}
-            <div style="padding: 15px;">
-               <img src="/static/images/{{i.cover}}" style="width: 350px;
-               height: 300px;object-fit: cover;" alt="">
-               <h2>{{i.title}}</h2><br>
-               <form action="/place-order/{{i.id}}" method="GET">
-                  <div class="row">
-                     <div class="col">
-                        <input type="number" style="height: 50px;" value="1" required placeholder="Qnty" name="qnty">
-                     </div>
-                     <div class="col">
-                        <button class="btn btn-primary w-100" style="height: 50px;">Place Order</button>
-                     </div>
-                  </div>
-               </form>
-            </div>
-            {% endfor %}
-         </div>
+         <br><br><br>
+         <h2 style="text-align: center;"><b>Enter Your Address</b></h2>
+         <form action="" method="POST" style="margin: 25px;padding-left: 35px;padding-right: 35px;">
+            {% csrf_token %}
+            <input type="text" required name="name" placeholder="Fullname*" class="form-control"><br>
+            <input type="number" required name="phone" placeholder="Phone*" class="form-control"><br>
+            <input type="text" required name="address" placeholder="Address*" class="form-control"><br>
+            <label for="">No of Days Wanted</label>
+            <input type="number" required name="no_of_days" value="1" placeholder="No of Days Wanted*" class="form-control"><br>
+            <button class="btn btn-danger w-100" style="margin-bottom: 15px;">Place Order</button>
+            <br>
+         </form>
+
+         <br><br><br><br>
       </div>
-      <br><br><br>
+      
       <!-- footer -->
       <footer>
          <div class="footer">
@@ -157,6 +144,15 @@
             </div>
          </div>
       </footer>
+
+      {% if err %}
+      <script>
+          alert('{{err}}');
+          location.href='/accounts/login/';
+      </script>
+      {% endif %}
+    
+      
       <!-- end footer -->
       <!-- Javascript files-->
       <script src="{% static 'js/jquery.min.js' %}"></script>
