@@ -62,3 +62,51 @@ class BuyPlanView(View):
         acc = Account.objects.get(id=id)
         plans = Plans.objects.filter(user=acc)
         return render(request,'buy_plans.html',{'works':plans})
+    
+
+@method_decorator(login_required,name='dispatch')
+class ArcDashView(View):
+    def get(self,request):
+        acc = Account.objects.get(user=request.user)
+        if acc.role != 'ARCHITECT':
+            return redirect("/")
+        
+        return render(request,'arc_dash.html')
+    
+
+@method_decorator(login_required,name='dispatch')
+class ArcAppointmentView(View):
+    def get(self,request):
+        appointments = BookArcAppointment.objects.filter(appointment_for__user=request.user)
+        return render(request,'arc_appointments.html',{'appointments':appointments})
+    
+
+@method_decorator(login_required,name='dispatch')
+class ArcPlansView(View):
+    def get(self,request):
+        plans = Plans.objects.filter(user__user=request.user)
+        return render(request,'arc_plans.html',{'plans':plans})
+    
+
+@method_decorator(login_required,name='dispatch')
+class ArcPlanDeleteView(View):
+    def get(self,request,id=None):
+        plan = Plans.objects.get(id=id).delete()
+        return redirect("/architect/plans")
+    
+
+@method_decorator(login_required,name='dispatch')
+class ArcAddPlanView(View):
+    def get(self,request):
+        return render(request,'add_plan.html')
+
+
+    def post(self,request):
+        title = request.POST.get("title")
+        cover = request.FILES.get("cover")
+        plan = request.FILES.get("plan")
+
+        acc = Account.objects.get(user=request.user)
+
+        Plans.objects.create(user=acc,title=title,cover=cover,plan=plan)
+        return redirect("/architect/plans")

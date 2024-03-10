@@ -23,7 +23,12 @@ class LoginView(View):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            return redirect("/")
+            acc = Account.objects.get(user)
+            if acc.role == 'CUSTOMER':
+                return redirect("/")
+            if acc.role == 'ARCHITECT':
+                return redirect("/architect/dashboard")
+            
         err = "Invalid credentails!"
         return redirect(f"/account/login/?err={err}")
     

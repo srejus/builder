@@ -7,8 +7,8 @@ USER END
 
 ARCHITECT
 
--> Manage Appointments
--> Manage plans
+-> Manage Appointments - DONE
+-> Manage plans - DONE
 
 
 CONTRACTOR
