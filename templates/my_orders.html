@@ -9,7 +9,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>Dream Nest</title>
+      <title>Dream Nest | My Orders</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -71,8 +71,18 @@
       </header>
       <!-- end header -->
 
-      <div class="main">
+      <div class="main p-3"><br><br><br>
+         <h1 style="text-align: center;"><b>My Orders</b></h1><br><br>
 
+            {% for order in orders %}
+               <div class="card p-2 pt-3 pb-3">
+                  <h4><b>ORDERID : #ORD_{{order.id}}</b></h4><br>
+                  <h4><b>{{order.item.title}} X {{order.quantity}}</b></h4> 
+                  <p>No of Days : {{order.no_of_days  }}</p>
+               </div>
+            {% endfor %}
+
+         <br><br><br>
       </div>
       
       <!-- footer -->

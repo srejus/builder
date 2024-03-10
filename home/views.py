@@ -43,5 +43,5 @@ class PlaceOrderView(View):
 @method_decorator(login_required, name='dispatch')
 class MyOrdersView(View):
     def get(self,request):
-        
-        return render()
+        orders = RentOrder.objects.filter(user__user=request.user)
+        return render(request,'my_orders.html',{'orders':orders})
