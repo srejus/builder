@@ -8,6 +8,13 @@ from .models import *
 # Create your views here.
 class IndexView(View):
     def get(self,request):
+        if request.user.is_authenticated:
+            acc = Account.objects.get(user=request.user)
+            if acc.role == 'ARCHITECT':
+                return redirect("/architect/dashboard")
+            if acc.role == 'CONTRACTOR':
+                return redirect("/contractor/") # change this to contractor home url
+            
         msg = request.GET.get("msg")
         return render(request,'index.html',{'msg':msg})
     
@@ -15,7 +22,7 @@ class IndexView(View):
 
 @method_decorator(login_required, name='dispatch')
 class RentItemsView(View):
-    def get(self,request):
+    def get(self,request,id=None):
         items = RentItems.objects.all()
         return render(request,'rent_items.html',{'items':items})
 
@@ -23,21 +30,22 @@ class RentItemsView(View):
 @method_decorator(login_required, name='dispatch')
 class PlaceOrderView(View):
     def get(self,request,id):
-        qnty = request.GET.get("qnty")
-        return render(request,'address.html')
+        item = RentItems.objects.get(id=id)
+        return render(request,'address.html',{'item':item})
     
     def post(self,request,id):
         name = request.POST.get("name")
         phone = request.POST.get("phone")
         address = request.POST.get("address")
         no_of_days = request.POST.get("no_of_days")
-        qnty = request.GET.get("qnty")
+        qnty = request.POST.get("qnty")
 
         acc = Account.objects.get(user=request.user)
         item = RentItems.objects.get(id=id)
         RentOrder.objects.create(user=acc,item=item,quantity=qnty,no_of_days=no_of_days,name=name,phone=phone,address=address)
 
-        return redirect("/")
+        msg = "Rent Order Placed Successfully!"
+        return redirect(f"/?msg={msg}")
 
 
 @method_decorator(login_required, name='dispatch')

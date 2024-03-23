@@ -1,13 +1,14 @@
 USER END
 
 -> When click on buy plans need to show PG and then download the file 
--> Rent Items pending - DONE
+-> Rent Items pending  -DONE
 -> My Orders Section to show rent items -DONE
 
 
 ARCHITECT
 
 -> Manage Appointments - DONE
+-> Add option to Accept or Reject Appointment
 -> Manage plans - DONE
 
 

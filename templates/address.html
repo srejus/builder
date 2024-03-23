@@ -76,17 +76,49 @@
          <h2 style="text-align: center;"><b>Enter Your Address</b></h2>
          <form action="" method="POST" style="margin: 25px;padding-left: 35px;padding-right: 35px;">
             {% csrf_token %}
+            <div style="width: 100%;display: flex;">
+               <img src="/static/images/{{item.cover}}" style="width: 120px;object-fit: cover;height: 120px;" alt="">
+               <button class="btn btn-danger" style="height: 40px;margin: 10px;" onclick="removeQnty()" type="button">-</button>
+               <button class="btn btn-danger" style="height: 40px;margin: 10px;" onclick="addQnty()" type="button">+</button>
+               
+
+            </div><br>
+            <label for="">Qnty</label>
+            <input type="number" required name="qnty" value="1" id="qnty" class="form-control"><br>
+           
             <input type="text" required name="name" placeholder="Fullname*" class="form-control"><br>
             <input type="number" required name="phone" placeholder="Phone*" class="form-control"><br>
             <input type="text" required name="address" placeholder="Address*" class="form-control"><br>
             <label for="">No of Days Wanted</label>
             <input type="number" required name="no_of_days" value="1" placeholder="No of Days Wanted*" class="form-control"><br>
+
+            <!-- <label for="">Total Cost (Rs)</label>
+            <input type="number" readonly name="cost" value="{{item.rent_per_day}}" id="cost" class="form-control"><br> -->
+
             <button class="btn btn-danger w-100" style="margin-bottom: 15px;">Place Order</button>
             <br>
          </form>
 
          <br><br><br><br>
       </div>
+
+      <script>
+        function addQnty() {
+            var qnty = parseInt(document.getElementById('qnty').value);
+            var cost = parseFloat(document.getElementById('cost').value);
+            document.getElementById('qnty').value = qnty + 1;
+            document.getElementById('cost').value = (qnty) * cost;
+         }
+
+         function removeQnty() {
+            var qnty = parseInt(document.getElementById('qnty').value);
+            var cost = parseFloat(document.getElementById('cost').value);
+            if (qnty > 1) {
+               document.getElementById('qnty').value = qnty - 1;
+               document.getElementById('cost').value = (qnty - 1) + cost;
+            }
+         }
+      </script>
       
       <!-- footer -->
       <footer>

@@ -23,7 +23,7 @@ class LoginView(View):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             login(request, user)
-            acc = Account.objects.get(user)
+            acc = Account.objects.get(user=user)
             if acc.role == 'CUSTOMER':
                 return redirect("/")
             if acc.role == 'ARCHITECT':
