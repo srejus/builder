@@ -85,8 +85,12 @@
             <div style="padding: 15px;">
                <img src="/static/images/{{i.cover}}" style="width: 350px;
                height: 300px;object-fit: cover;" alt="">
-               <h2>{{i.title}}</h2><br>
-               <button class="btn btn-primary w-100">Buy Plan</button>
+               <h2>{{i.title}}</h2>
+               <p>{{i.price}} Rs.</p><br>
+               <form action="/architect/buy-plans/{{i.id}}" method="POST">
+                  {% csrf_token %}
+                  <button class="btn btn-danger w-100">Buy Plan</button>
+               </form>
             </div>
             {% endfor %}
          </div>

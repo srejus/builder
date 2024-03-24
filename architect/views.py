@@ -8,7 +8,7 @@ from django.utils.decorators import method_decorator
 
 from .models import *
 from accounts.models import Account
-from project.utils import send_mail
+from project.utils import send_mail,create_stripe_payment_link
 
 
 # Create your views here.
@@ -63,6 +63,19 @@ class BuyPlanView(View):
         acc = Account.objects.get(id=id)
         plans = Plans.objects.filter(user=acc)
         return render(request,'buy_plans.html',{'works':plans})
+
+    def post(self,request,id=None):
+        plan = Plans.objects.get(id=id)
+        return redirect(create_stripe_payment_link(plan.price,plan.id))
+
+
+class BuyPlanSuccessView(View):
+    def get(self,request):
+        plan_id = request.GET.get("plan_id")
+        plan = Plans.objects.get(id=plan_id)
+        plan.total_downloads = plan.total_downloads+1
+        plan.save()
+        return render(request,'success.html',{'plan':plan})
     
 
 @method_decorator(login_required,name='dispatch')
@@ -107,10 +120,11 @@ class ArcAddPlanView(View):
         title = request.POST.get("title")
         cover = request.FILES.get("cover")
         plan = request.FILES.get("plan")
+        price = request.POST.get("price")
 
         acc = Account.objects.get(user=request.user)
 
-        Plans.objects.create(user=acc,title=title,cover=cover,plan=plan)
+        Plans.objects.create(user=acc,title=title,cover=cover,plan=plan,price=price)
         return redirect("/architect/plans")
     
 

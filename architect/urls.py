@@ -7,6 +7,7 @@ urlpatterns = [
     path('book-appointment/<int:id>',BookArchAppointmentView.as_view()),
     path('view-works/<int:id>',ViewWorksView.as_view()),
     path('buy-plans/<int:id>',BuyPlanView.as_view()),
+    path('buy-plans/success',BuyPlanSuccessView.as_view()),
 
     path('appointments',ArcAppointmentView.as_view()),
     path('appointments/accept/<int:id>',ArcAppointmentAcceptView.as_view()),

@@ -35,6 +35,8 @@ class Plans(models.Model):
     title = models.CharField(max_length=100)
     cover = models.ImageField(upload_to='plan_cover')
     plan = models.FileField(upload_to='plan_file')
+    price = models.FloatField(default=0.0)
+    total_downloads = models.IntegerField(default=0)
 
     def __str__(self):
         return str(self.user)

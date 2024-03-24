@@ -71,22 +71,17 @@
       </header>
       <!-- end header -->
 
-      <div class="main">
-         <br><br><br>
-         <h2 style="text-align: center;"><b>Add New Plan</b></h2>
-         <form action="" method="POST" style="margin: 25px;padding-left: 35px;padding-right: 35px;" enctype="multipart/form-data">
-            {% csrf_token %}
-            <input type="text" required name="title" placeholder="Plan Title" class="form-control"><br>
-            <input type="number" required name="price" placeholder="Plan Price" class="form-control"><br>
-            <label for="">Cover Image</label>
-            <input type="file" name="cover" required accept="image/*">
-            <label for="">Plan File </label>
-            <input type="file" name="plan" required><br><br>
-            <button class="btn btn-danger w-100" style="margin-bottom: 15px;">Upload Plan</button>
-            <br>
-         </form>
-
-         <br><br><br><br>
+      <div class="mai">
+         <br><br><br><br><br><br>
+            <div>
+               <h1 style="text-align: center;font-size: 35px;"><b>Thanks for Buying the Plan</b></h1><br>
+               <div style="width: 100%;;display: flex;justify-content: center;">
+                  <button class="btn btn-danger" style="align-items: center;">
+                     <a href="/static/images/{{plan.plan}}" style="color:white" download><i class="fa fa-download"></i>&nbsp;&nbsp;&nbsp;   Download Plan</a>
+                  </button>
+               </div>
+            </div>
+         <br><br><br><br><br><br>
       </div>
       
       <!-- footer -->
@@ -149,15 +144,6 @@
             </div>
          </div>
       </footer>
-
-      {% if err %}
-      <script>
-          alert('{{err}}');
-          location.href='/accounts/login/';
-      </script>
-      {% endif %}
-    
-      
       <!-- end footer -->
       <!-- Javascript files-->
       <script src="{% static 'js/jquery.min.js' %}"></script>
