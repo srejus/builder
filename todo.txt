@@ -8,7 +8,8 @@ USER END
 ARCHITECT
 
 -> Manage Appointments - DONE
--> Add option to Accept or Reject Appointment
+-> Add option to Accept or Reject Appointment - DONE
+-> Send email when status changes - DONE
 -> Manage plans - DONE
 
 

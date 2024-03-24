@@ -57,7 +57,7 @@
                         <li class="d_none"><i class="fa fa-phone" aria-hidden="true"></i>+71  1234567890</a></li>
                         <li class="d_none"> <a href="#"><i class="fa fa-envelope" aria-hidden="true"></i>demo@gmail.com</a></li>
                         {% if user.is_authenticated %}
-                        <li class="d_none"> <a href="/my-orders">My Orders <i class="fa fa-shopping-cart" aria-hidden="true"></i></a> </li>
+                        <li class="d_none"> <a href="/accounts/logout">Logout <i class="fa fa-arrow-right" aria-hidden="true"></i></a> </li>
                         {% else %}
                         <li class="d_none"> <a href="/accounts/login/">Login <i class="fa fa-user" aria-hidden="true"></i></a> </li>
                         {% endif %}

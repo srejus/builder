@@ -9,6 +9,9 @@ urlpatterns = [
     path('buy-plans/<int:id>',BuyPlanView.as_view()),
 
     path('appointments',ArcAppointmentView.as_view()),
+    path('appointments/accept/<int:id>',ArcAppointmentAcceptView.as_view()),
+    path('appointments/reject/<int:id>',ArcAppointmentRejectView.as_view()),
+
     path('plans',ArcPlansView.as_view()),
     path('plans/add',ArcAddPlanView.as_view()),
     path('plans/delete/<int:id>',ArcPlanDeleteView.as_view()),

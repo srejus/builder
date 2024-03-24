@@ -8,6 +8,7 @@ from django.utils.decorators import method_decorator
 
 from .models import *
 from accounts.models import Account
+from project.utils import send_mail
 
 
 # Create your views here.
@@ -69,7 +70,8 @@ class ArcDashView(View):
     def get(self,request):
         acc = Account.objects.get(user=request.user)
         if acc.role != 'ARCHITECT':
-            return redirect("/")
+            msg = "You don't have permission to access this page!"
+            return redirect(f"/?msg={msg}")
         
         return render(request,'arc_dash.html')
     
@@ -110,3 +112,48 @@ class ArcAddPlanView(View):
 
         Plans.objects.create(user=acc,title=title,cover=cover,plan=plan)
         return redirect("/architect/plans")
+    
+
+@method_decorator(login_required,name='dispatch')
+class ArcAppointmentAcceptView(View):
+    def get(self,rerquest,id=None):
+        acc = Account.objects.get(user=rerquest.user)
+        if acc.role != 'ARCHITECT':
+            msg = "You don't have permission to access this page!"
+            return redirect(f"/?msg={msg}")
+        
+        appointment = BookArcAppointment.objects.get(id=id)
+        appointment.status = BookArcAppointment.ACCEPTED
+        appointment.save()
+        # send mail
+        to_email = appointment.user.email
+        if to_email:
+            subject = "Architect appointment Accepted!"
+            content = f"Hello {appointment.user.first_name}, \nYour appointment for {appointment.appointment_for.first_name} has been aceecpted\n\nThanks"
+
+            send_mail(to_email,subject,content)
+
+        return redirect("/architect/appointments")
+    
+
+
+@method_decorator(login_required,name='dispatch')
+class ArcAppointmentRejectView(View):
+    def get(self,rerquest,id=None):
+        acc = Account.objects.get(user=rerquest.user)
+        if acc.role != 'ARCHITECT':
+            msg = "You don't have permission to access this page!"
+            return redirect(f"/?msg={msg}")
+        
+        appointment = BookArcAppointment.objects.get(id=id)
+        appointment.status = BookArcAppointment.REJECTED
+        appointment.save()
+        # send mail
+        to_email = appointment.user.email
+        if to_email:
+            subject = "Architect appointment Rejected!"
+            content = f"Hello {appointment.user.first_name}, \nYour appointment for {appointment.appointment_for.first_name} has been rejected\n\nThanks"
+
+            send_mail(to_email,subject,content)
+
+        return redirect("/architect/appointments")

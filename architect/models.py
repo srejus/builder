@@ -3,9 +3,20 @@ from accounts.models import Account
 
 # Create your models here.
 class BookArcAppointment(models.Model):
+    RECEIVED = 'RECEIVED'
+    ACCEPTED = 'ACCEPTED'
+    REJECTED = 'REJECTED'
+
+    STATUS_CHOICES = (
+        (RECEIVED,RECEIVED),
+        (ACCEPTED,ACCEPTED),
+        (REJECTED,REJECTED)
+    )
+
     user = models.ForeignKey(Account,on_delete=models.CASCADE)
     appointment_for = models.ForeignKey(Account,on_delete=models.CASCADE,related_name='appointment_for') # architect
     booking_date = models.DateTimeField(null=True,blank=True)
+    status = models.CharField(max_length=100,default='RECEIVED',choices=STATUS_CHOICES)
 
     def __str__(self):
         return str(self.user)+" > "+str(self.appointment_for)
