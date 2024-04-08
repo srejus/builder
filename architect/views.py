@@ -92,7 +92,12 @@ class ArcDashView(View):
 @method_decorator(login_required,name='dispatch')
 class ArcAppointmentView(View):
     def get(self,request):
-        appointments = BookArcAppointment.objects.filter(appointment_for__user=request.user)
+        type_ = request.GET.get("type","new")
+        if type_ == 'new':
+            appointments = BookArcAppointment.objects.filter(appointment_for__user=request.user,
+                                                             status=BookArcAppointment.RECEIVED)
+        else:
+            appointments = BookArcAppointment.objects.filter(appointment_for__user=request.user)
         return render(request,'arc_appointments.html',{'appointments':appointments})
     
 
@@ -121,10 +126,11 @@ class ArcAddPlanView(View):
         cover = request.FILES.get("cover")
         plan = request.FILES.get("plan")
         price = request.POST.get("price")
+        desc = request.POST.get("desc")
 
         acc = Account.objects.get(user=request.user)
 
-        Plans.objects.create(user=acc,title=title,cover=cover,plan=plan,price=price)
+        Plans.objects.create(user=acc,title=title,cover=cover,plan=plan,price=price,desc=desc)
         return redirect("/architect/plans")
     
 
@@ -171,3 +177,32 @@ class ArcAppointmentRejectView(View):
             send_mail(to_email,subject,content)
 
         return redirect("/architect/appointments")
+    
+
+@method_decorator(login_required,name='dispatch')
+class ArcWorksView(View):
+    def get(self,request):
+        works = Works.objects.filter(user__user=request.user).order_by('-id')
+        return render(request,"arc_works.html",{'works':works})
+    
+
+@method_decorator(login_required,name='dispatch')
+class ArcAddWorkView(View):
+    def get(self,request):
+        return render(request,"arc_add_work.html")
+    
+    def post(self,request):
+        cover = request.FILES.get("cover")
+        desc = request.POST.get("desc")
+
+        acc = Account.objects.get(user=request.user)
+        Works.objects.create(cover=cover,desc=desc,user=acc)
+        return redirect("/architect/works")
+    
+
+
+@method_decorator(login_required,name='dispatch')
+class ArcWorksDeleteView(View):
+    def get(self,request,id):
+        Works.objects.filter(user__user=request.user,id=id).delete()
+        return redirect("/architect/works")

@@ -73,8 +73,14 @@
 
       <div class="main p-3"><br><br><br>
          <h1 style="text-align: center;"><b>Manage Appointments</b></h1><br><br>
+         <div style="display: flex;">
+            <a href="/architect/appointments?type=all" class="btn btn-secondary" style="height: 40px;"
+            >All Appointments</a><br>&nbsp;&nbsp;
+            <a href="/architect/appointments?type=new" class="btn btn-secondary" style="height: 40px;"
+            >New Appointments</a><br>
+         </div>
 
-            {% for a in appointments %}
+            {% for a in appointments %} <br>
                <div class="card p-2 pt-3 pb-3">
                   <h4><b>{{a.user.first_name }} {{a.last_name}}</b></h4><br>
                   <p>Appointment For : {{a.booking_date  }}</p>

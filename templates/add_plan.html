@@ -78,6 +78,7 @@
             {% csrf_token %}
             <input type="text" required name="title" placeholder="Plan Title" class="form-control"><br>
             <input type="number" required name="price" placeholder="Plan Price" class="form-control"><br>
+            <textarea name="desc" class="form-control" style="resize: none;height: 150px;" placeholder="Plan Description..." cols="30" rows="10"></textarea>
             <label for="">Cover Image</label>
             <input type="file" name="cover" required accept="image/*">
             <label for="">Plan File </label>

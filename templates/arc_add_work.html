@@ -57,7 +57,7 @@
                         <li class="d_none"><i class="fa fa-phone" aria-hidden="true"></i>+71  1234567890</a></li>
                         <li class="d_none"> <a href="#"><i class="fa fa-envelope" aria-hidden="true"></i>demo@gmail.com</a></li>
                         {% if user.is_authenticated %}
-                        <li class="d_none"> <a href="/accounts/logout">Logout <i class="fa fa-arrow-right" aria-hidden="true"></i></a> </li>
+                        <li class="d_none"> <a href="/my-orders">My Orders <i class="fa fa-shopping-cart" aria-hidden="true"></i></a> </li>
                         {% else %}
                         <li class="d_none"> <a href="/accounts/login/">Login <i class="fa fa-user" aria-hidden="true"></i></a> </li>
                         {% endif %}
@@ -71,30 +71,22 @@
       </header>
       <!-- end header -->
 
-      <div class="main p-4"><br><br><br>
-         <h1 style="text-align: center;"><b>Architect Dashboard</b></h1><br><br>
-         <div class="row">
-            <div class="col">
-               <div class="card p-4" onclick="window.location.href='/architect/appointments'" style="cursor: pointer;">
-                  <h2>Manage Appointment</h2><br>
-               </div>
-            </div>
+      <div class="main">
+         <br><br><br>
+         <h2 style="text-align: center;"><b>Add New Work</b></h2>
+         <form action="" method="POST" style="margin: 25px;padding-left: 35px;padding-right: 35px;" enctype="multipart/form-data">
+            {% csrf_token %}
+          
+            <label for="">Cover Image</label>
+            <input type="file" name="cover" required accept="image/*">
 
-            <div class="col">
-               <div class="card p-4" onclick="window.location.href='/architect/plans'" style="cursor: pointer;">
-                  <h2>My Plans</h2><br>
-               </div>
-            </div>
-
-            <div class="col">
-               <div class="card p-4" onclick="window.location.href='/architect/works'" style="cursor: pointer;">
-                  <h2>Previous Works</h2><br>
-               </div>
-            </div>
-         </div>
+            <textarea name="desc" class="form-control" style="resize: none;height: 150px;" placeholder="Plan Description..." cols="30" rows="10"></textarea>
+            
+            <button class="btn btn-danger w-100" style="margin-bottom: 15px;">Upload Work</button>
+            <br>
+         </form>
 
          <br><br><br><br>
-
       </div>
       
       <!-- footer -->
@@ -157,6 +149,15 @@
             </div>
          </div>
       </footer>
+
+      {% if err %}
+      <script>
+          alert('{{err}}');
+          location.href='/accounts/login/';
+      </script>
+      {% endif %}
+    
+      
       <!-- end footer -->
       <!-- Javascript files-->
       <script src="{% static 'js/jquery.min.js' %}"></script>

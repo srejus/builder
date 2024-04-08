@@ -9,7 +9,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>Dream Nest</title>
+      <title>Dream Nest | Previous Works</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -71,30 +71,24 @@
       </header>
       <!-- end header -->
 
-      <div class="main p-4"><br><br><br>
-         <h1 style="text-align: center;"><b>Architect Dashboard</b></h1><br><br>
-         <div class="row">
-            <div class="col">
-               <div class="card p-4" onclick="window.location.href='/architect/appointments'" style="cursor: pointer;">
-                  <h2>Manage Appointment</h2><br>
+      <div class="main p-3"><br><br><br>
+         <h1 style="text-align: center;"><b>Previous Works</b></h1><br><br>
+         <a href="/architect/works/add" class="btn btn-secondary"><i class="fa fa-plus"></i> Add Work</a><br>
+        
+
+            {% for a in works %} <br>
+               <div class="card p-2 pt-3 pb-3">
+                  <h4><b>{{a.user.first_name }} {{a.last_name}}</b></h4><br>
+                  <img src="/static/images/{{a.cover}}" style="width: 200px;height: 200px;" alt="">
+                  <p>Work Description : {{a.desc  }}</p><br>
+                  <div>
+                     <button class="btn btn-danger" onclick="window.location.href='/architect/works/delete/{{a.id}}'">Delete Work</button>
+                  </div>
+                  
                </div>
-            </div>
+            {% endfor %}
 
-            <div class="col">
-               <div class="card p-4" onclick="window.location.href='/architect/plans'" style="cursor: pointer;">
-                  <h2>My Plans</h2><br>
-               </div>
-            </div>
-
-            <div class="col">
-               <div class="card p-4" onclick="window.location.href='/architect/works'" style="cursor: pointer;">
-                  <h2>Previous Works</h2><br>
-               </div>
-            </div>
-         </div>
-
-         <br><br><br><br>
-
+         <br><br><br>
       </div>
       
       <!-- footer -->

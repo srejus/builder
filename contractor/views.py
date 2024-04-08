@@ -9,6 +9,7 @@ from django.utils.decorators import method_decorator
 from .models import *
 from accounts.models import Account
 from project.utils import send_mail
+from architect.models import Works
 
 
 # Create your views here.
@@ -61,7 +62,13 @@ class ConAppoitmentView(View):
             msg = "You don't have access to this page!"
             return redirect(f"/?msg={msg}")
         
-        appointments = BookContractorAppointment.objects.filter(appointment_for__user=request.user).order_by('-id')
+        type_ = request.GET.get("type","new")
+        if type_ == "new":
+            appointments = BookContractorAppointment.objects.filter(appointment_for__user=request.user
+                                                                    ,status=BookContractorAppointment.RECEIVED).order_by('-id')
+        else:
+            appointments = BookContractorAppointment.objects.filter(appointment_for__user=request.user).order_by('-id')
+
         return render(request,'contractor_appointments.html',{'appointments':appointments})
     
 
@@ -105,3 +112,32 @@ class ConRejectAppoitmentView(View):
 
             send_mail(to_email,subject,content)
         return redirect("/contractor/appointments")
+    
+
+@method_decorator(login_required,name='dispatch')
+class ConWorksView(View):
+    def get(self,request):
+        works = Works.objects.filter(user__user=request.user).order_by('-id')
+        return render(request,'con_works.html',{'works':works})
+    
+
+@method_decorator(login_required,name='dispatch')
+class ConAddWorkView(View):
+    def get(self,request):
+        return render(request,"con_add_work.html")
+    
+    def post(self,request):
+        cover = request.FILES.get("cover")
+        desc = request.POST.get("desc")
+
+        acc = Account.objects.get(user=request.user)
+        Works.objects.create(cover=cover,desc=desc,user=acc)
+        return redirect("/contractor/works")
+    
+
+
+@method_decorator(login_required,name='dispatch')
+class ConWorksDeleteView(View):
+    def get(self,request,id):
+        Works.objects.filter(user__user=request.user,id=id).delete()
+        return redirect("/contractor/works")

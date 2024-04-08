@@ -30,7 +30,7 @@ class LoginView(View):
                 return redirect("/architect/dashboard")
             
         err = "Invalid credentails!"
-        return redirect(f"/account/login/?err={err}")
+        return redirect(f"/accounts/login/?err={err}")
     
 
 class SignupView(View):

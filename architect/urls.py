@@ -16,4 +16,8 @@ urlpatterns = [
     path('plans',ArcPlansView.as_view()),
     path('plans/add',ArcAddPlanView.as_view()),
     path('plans/delete/<int:id>',ArcPlanDeleteView.as_view()),
+
+    path('works',ArcWorksView.as_view()),
+    path('works/add',ArcAddWorkView.as_view()),
+    path('works/delete/<int:id>',ArcWorksDeleteView.as_view()),
 ]

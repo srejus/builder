@@ -3,6 +3,9 @@ USER END
 -> When click on buy plans need to show PG and then download the file - DONE
 -> Rent Items pending  -DONE
 -> My Orders Section to show rent items -DONE
+-> Logout option
+-> Edit profile
+-> Appointment History
 
 
 ARCHITECT
@@ -11,9 +14,25 @@ ARCHITECT
 -> Add option to Accept or Reject Appointment - DONE
 -> Send email when status changes - DONE
 -> Manage plans - DONE
+-> Upload and manage Previous Work - DONE
+
+-> Add plan desc in plans model - DOME
+
+EVERYTHING DONE AS PER FINAL REQ
+
+
+========================================================================================
+
 
 
 CONTRACTOR
 
 -> Manage Appointment - DONE
 -> Send Email when Appointment status change - DONE
+-> limit no of appointments
+
+
+ADMIN
+-> Rent items
+-> manage rent order
+-> manage rent item stock

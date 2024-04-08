@@ -87,6 +87,7 @@
                height: 300px;object-fit: cover;" alt="">
                <h2>{{i.title}}</h2>
                <p>{{i.price}} Rs.</p><br>
+               <p>{{i.desc}}</p>
                <form action="/architect/buy-plans/{{i.id}}" method="POST">
                   {% csrf_token %}
                   <button class="btn btn-danger w-100">Buy Plan</button>
