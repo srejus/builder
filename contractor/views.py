@@ -27,12 +27,24 @@ class BookContractorAppointmentView(View):
         # Convert the appointment_at string to a datetime object
         appointment_at = timezone.make_aware(datetime.strptime(appointment_at_str, '%Y-%m-%dT%H:%M'))
 
+
         # Get the current datetime in the current timezone
         current_datetime = timezone.now()
 
         if appointment_at > current_datetime:
             acc = Account.objects.get(user=request.user)
+
             appointment_for = Account.objects.get(id=appointment_for_id)
+
+            # check slots available for that data
+            appointments_count = BookContractorAppointment.objects.filter(
+                booking_date__date=appointment_at.date(),appointment_for=appointment_for
+            ).count()
+
+            if appointment_for.no_of_workers <= appointments_count:
+                err = "No available Slots or Workers found!"
+                return redirect(f"/contractor/book-appointment?err={err}")
+            
             if not BookContractorAppointment.objects.filter(user=acc,appointment_for=appointment_for).exists():
                 BookContractorAppointment.objects.create(user=acc,appointment_for=appointment_for,booking_date=appointment_at)
         else:

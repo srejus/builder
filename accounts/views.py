@@ -78,3 +78,30 @@ class LogoutView(View):
     def get(self,request):
         logout(request)
         return redirect("/accounts/login/")
+    
+
+@method_decorator(login_required,name='dispatch')
+class ProfileView(View):
+    def get(self,request):
+        acc = Account.objects.get(user=request.user)
+        return render(request,'profile.html',{'acc':acc})
+    
+    def post(self,request):
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        location = request.POST.get('location')
+        domain = request.POST.get('domain')
+        company_name = request.POST.get('company_name')
+
+        acc = Account.objects.get(user=request.user)
+
+        acc.first_name = first_name
+        acc.last_name = last_name
+        acc.email = email
+        acc.location = location
+        acc.domain = domain
+        acc.company_name = company_name
+        acc.save()
+
+        return redirect("/")

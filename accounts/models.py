@@ -17,6 +17,8 @@ class Account(models.Model):
     domain = models.CharField(max_length=100,null=True,blank=True)
     location = models.CharField(max_length=100,null=True,blank=True)
 
+    no_of_workers = models.IntegerField(default=1) # only for contractor
+
     def __str__(self):
         return str(self.first_name)+' '+str(self.last_name)
 
