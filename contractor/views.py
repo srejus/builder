@@ -13,6 +13,14 @@ from architect.models import Works
 
 
 # Create your views here.
+@method_decorator(login_required,name='dispatch')
+class ContractorListView(View):
+    def get(self,request):
+        contractors = Account.objects.filter(role='CONTRACTOR')
+        return render(request,'contractor_list.html',{'arcs':contractors})
+
+
+
 @method_decorator(login_required, name='dispatch')
 class BookContractorAppointmentView(View):
     def get(self,request):

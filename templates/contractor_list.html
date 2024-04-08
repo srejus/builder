@@ -58,7 +58,6 @@
                         <li class="d_none"> <a href="#"><i class="fa fa-envelope" aria-hidden="true"></i>demo@gmail.com</a></li>
                         {% if user.is_authenticated %}
                         <li class="d_none"> <a href="/my-orders">My Orders <i class="fa fa-shopping-cart" aria-hidden="true"></i></a> </li>
-                        <li class="d_none"> <a href="/accounts/profile">My Profile <i class="fa fa-user" aria-hidden="true"></i></a> </li>
                         {% else %}
                         <li class="d_none"> <a href="/accounts/login/">Login <i class="fa fa-user" aria-hidden="true"></i></a> </li>
                         {% endif %}
@@ -71,132 +70,38 @@
          </div>
       </header>
       <!-- end header -->
-      <!-- start slider section -->
-      <div class=" banner_main">
-         <div id="myCarousel" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-               <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-               <li data-target="#myCarousel" data-slide-to="1"></li>
-               <li data-target="#myCarousel" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner">
-               <div class="carousel-item active">
-                  <div class="container">
-                     <div class="carousel-caption relative">
-                        <div class="bg_white">
-                           <h1>Welcome To our <span class="yello">Interior Design</span></h1>
-                           <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as</p>
-                        </div>
-                        {% if user.is_authenticated %}
-                        <div class="row">
-                           <div class="col">
-                              <a class="read_more ban_btn" href="/architect/" style="width: 450px;">Find Architect</a>
-                           </div>
-                           <!-- <div class="col">
-                              <a class="read_more ban_btn" href="/architect/book-appointment" style="width: 450px;">Book Architect Appointment</a>
-                           </div>
-                           <div class="col">
-                              <a class="read_more ban_btn" href="" style="height: auto;">Buy Existing Plan</a>
-                           </div> -->
-                           <div class="col">
-                              <a class="read_more ban_btn" href="/contractor/list" style="height: auto;">View Contractor</a>
-                           </div>
+      <style>
+         .main-loop{
+            padding: 25px;
+         }
+         .card{
+            padding: 15px;
+            display: flex;
+            flex-direction: row;
+         }
+         
+      </style>
+      <br><br><br>
+      <div class="main">
+         {% for a in arcs %}
+            <div class="main-loop">
+               <div class="card">
+                  <div style="width: 70%;">
+                     <h2>{{a.first_name}} {{a.last_name}}</h2>
+                     <h4>{{a.location}}</h4>
+                     <h6>{{a.email}}</h6>
+                     <h6>No of Worker Team : {{a.no_of_workers}}</h6>
+                     <!-- <a href="/architect/view-works/{{a.id}}" style="color: dodgerblue;">View Works</a> -->
+                  </div>
+                  
+                     <!-- <a class="read_more ban_btn" href="/architect/book-appointment/{{a.id}}" style="width: 450px;margin-right: 7px;">Book Architect Appointment</a>
+                     <a class="read_more ban_btn" href="/architect/buy-plans/{{a.id}}" style="width: 450px;">Buy Plans</a> -->
 
-                           <div class="col">
-                              <a class="read_more ban_btn" href="/contractor/book-appointment" style="height: auto;">Book Contract Appointment</a>
-                           </div>
-                           <div class="col">
-                              <a class="read_more ban_btn" href="/rent-items" style="height: auto;">Rent Items</a>
-                           </div>
-                           </div>
-                        </div>
-                        {% else %}
-                           <a class="read_more ban_btn" href="/accounts/login/" style="height: auto;">Login</a>
-                        {% endif %}
-                     </div>
-                  </div>
-               </div>
-              
-              
-              
-            </div>
-            
-            </a>
-         </div>
-      </div>
-      <!-- end slider section -->
-      <!-- six_box-->
-      <div id="about" class="about top_layer">
-         <div class="container">
-            <div class="row">
-               <div class="col-sm-12">
-                  <div class="titlepage">
-                     <h2>About us</h2>
-                     <p>It is a long established fact that a reader will be distracted by the readable content </p>
-                  </div>
-               </div>
-               <div class=" col-sm-12">
-                  <div class="about_box">
-                     <div class="row d_flex">
-                        <div class="col-md-5">
-                           <div class="about_box_text">
-                              <h3>Best INTERIOR Design</h3>
-                              <p>There are many variations of passages of 
-                                 Lorem Ipsum available, but the majority 
-                                 have suffered alteration in some 
-                                 form, by injected humour,There are many 
-                                 variations of passages of 
-                              </p>
-                              <a class="read_more" href="Javascript:void(0)">Read More</a>
-                           </div>
-                        </div>
-                        <div class=" col-md-7  pppp">
-                           <div class="about_box_img">
-                              <figure><img src="{% static 'images/about_img.png' %}" alt="#" /></figure>
-                           </div>
-                        </div>
-                     </div>
-                  </div>
                </div>
             </div>
-         </div>
+         {% endfor %}
       </div>
-      <!-- end six_box-->
-      <!-- building -->
-      <div class="building">
-         <div class="container">
-            <div class="row">
-               <div class="col-md-12">
-                  <div class="titlepage">
-                     <h2>IF A BUILDING <br><span class="yello">BECOMES ARCHITECTURE <br></span> THEN IT IS ART</h2>
-                     <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, asIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, asIt is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as</p>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <!-- end building -->
-      
-      <!-- instant -->
-      <div class="instant">
-         <div class="container-fluid">
-            <div class="row">
-               <div class="col-md-6">
-                  <div class="titlepage text_align_left">
-                     <h2>Get an instant estimate</h2>
-                     <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters,</p>
-                     <a class="read_more" href="Javascript:void(0)">Get A quote</a>
-                  </div>
-               </div>
-               <div class="col-md-6">
-                  <div class="instant_img">
-                     <figure><img src="{% static 'images/pc.png' %}" alt="#"/></figure>
-                  </div>
-               </div>
-            </div>
-         </div>
-      </div>
-      <!-- end instant -->
+      <br><br><br>
       <!-- footer -->
       <footer>
          <div class="footer">
@@ -257,12 +162,6 @@
             </div>
          </div>
       </footer>
-      {% if msg %}
-      <script>
-         alert('{{msg}}');
-         window.location.href='/';
-      </script>
-      {% endif %}
       <!-- end footer -->
       <!-- Javascript files-->
       <script src="{% static 'js/jquery.min.js' %}"></script>
@@ -271,3 +170,4 @@
       <script src="{% static 'js/jquery-3.0.0.min.js' %}"></script>
       
    </body>
+</html>
