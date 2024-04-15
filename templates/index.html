@@ -59,6 +59,7 @@
                         {% if user.is_authenticated %}
                         <li class="d_none"> <a href="/my-orders">My Orders <i class="fa fa-shopping-cart" aria-hidden="true"></i></a> </li>
                         <li class="d_none"> <a href="/accounts/profile">My Profile <i class="fa fa-user" aria-hidden="true"></i></a> </li>
+                        <li class="d_none"> <a href="/accounts/logout">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a> </li>
                         {% else %}
                         <li class="d_none"> <a href="/accounts/login/">Login <i class="fa fa-user" aria-hidden="true"></i></a> </li>
                         {% endif %}

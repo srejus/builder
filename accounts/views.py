@@ -28,6 +28,9 @@ class LoginView(View):
                 return redirect("/")
             if acc.role == 'ARCHITECT':
                 return redirect("/architect/dashboard")
+        
+            if acc.role == 'CONTRACTOR':
+                return redirect("/contractor/")
             
         err = "Invalid credentails!"
         return redirect(f"/accounts/login/?err={err}")
