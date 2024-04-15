@@ -69,6 +69,10 @@ class SignupView(View):
                                      email=email,location=location,
                                      domain=domain,company_name=company_name,role=role)
 
+        type_ = request.GET.get("type")
+        if type_ and type_ == 'admin':
+            return redirect("/adminuser/users")
+        
         return redirect('/accounts/login')
 
 
@@ -82,11 +86,14 @@ class LogoutView(View):
 
 @method_decorator(login_required,name='dispatch')
 class ProfileView(View):
-    def get(self,request):
-        acc = Account.objects.get(user=request.user)
+    def get(self,request,id=None):
+        if id:
+            acc = Account.objects.get(id=id)
+        else:
+            acc = Account.objects.get(user=request.user)        
         return render(request,'profile.html',{'acc':acc})
     
-    def post(self,request):
+    def post(self,request,id=None):
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
         email = request.POST.get('email')
@@ -94,7 +101,10 @@ class ProfileView(View):
         domain = request.POST.get('domain')
         company_name = request.POST.get('company_name')
 
-        acc = Account.objects.get(user=request.user)
+        if id:
+            acc = Account.objects.get(id=id)
+        else:
+            acc = Account.objects.get(user=request.user)
 
         acc.first_name = first_name
         acc.last_name = last_name
@@ -103,5 +113,8 @@ class ProfileView(View):
         acc.domain = domain
         acc.company_name = company_name
         acc.save()
+
+        if id:
+            return redirect("/adminuser/users")
 
         return redirect("/")

@@ -6,6 +6,7 @@ class RentItems(models.Model):
     title = models.CharField(max_length=100)
     cover = models.ImageField(upload_to='rent_items')
     rent_per_day = models.FloatField()
+    available_quantity = models.IntegerField(default=1)
 
     def __str__(self):
         return str(self.title)
@@ -20,6 +21,7 @@ class RentOrder(models.Model):
     address = models.CharField(max_length=100,null=True,blank=True)
     no_of_days = models.IntegerField(null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
+    is_restocked = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.item.title) + " - "+ str(self.quantity)

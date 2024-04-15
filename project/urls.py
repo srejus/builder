@@ -7,4 +7,7 @@ urlpatterns = [
     path('accounts/',include('accounts.urls')),
     path('architect/',include('architect.urls')),
     path('contractor/',include('contractor.urls')),
+
+    path('adminuser/',include('adminuser.urls')),
+
 ]

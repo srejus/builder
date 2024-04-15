@@ -9,7 +9,7 @@
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <meta name="viewport" content="initial-scale=1, maximum-scale=1">
       <!-- site metas -->
-      <title>Dream Nest</title>
+      <title>Dream Nest | Add User</title>
       <meta name="keywords" content="">
       <meta name="description" content="">
       <meta name="author" content="">
@@ -48,7 +48,7 @@
                <div class="row">
                   <div class="col-sm-3">
                      <div class="logo">
-                        <a href="/"><img src="{% static 'images/logo_footer.png' %}" /></a>
+                        <a href="/adminuser/"><img src="{% static 'images/logo_footer.png' %}" /></a>
                      </div>
                   </div>
                   <div class="col-sm-9">
@@ -57,7 +57,7 @@
                         <li class="d_none"><i class="fa fa-phone" aria-hidden="true"></i>+71  1234567890</a></li>
                         <li class="d_none"> <a href="#"><i class="fa fa-envelope" aria-hidden="true"></i>demo@gmail.com</a></li>
                         {% if user.is_authenticated %}
-                        <li class="d_none"> <a href="/my-orders">My Orders <i class="fa fa-shopping-cart" aria-hidden="true"></i></a> </li>
+                        <li class="d_none"> <a href="/accounts/profile">My Account <i class="fa fa-user" aria-hidden="true"></i></a> </li>
                         {% else %}
                         <li class="d_none"> <a href="/accounts/login/">Login <i class="fa fa-user" aria-hidden="true"></i></a> </li>
                         {% endif %}
@@ -73,58 +73,33 @@
 
       <div class="main">
          <br><br><br>
-         <h2 style="text-align: center;"><b>Enter Your Address</b></h2>
-         <form action="" method="POST" style="margin: 25px;padding-left: 35px;padding-right: 35px;">
+         <h2 style="text-align: center;"><b>Add New User</b></h2>
+         <form action="/accounts/signup?type=admin" method="POST" style="margin: 25px;padding-left: 35px;padding-right: 35px;">
             {% csrf_token %}
-            <div style="width: 100%;display: flex;">
-               <img src="/static/images/{{item.cover}}" style="width: 120px;object-fit: cover;height: 120px;" alt="">
-               <button class="btn btn-danger" style="height: 40px;margin: 10px;" onclick="removeQnty()" type="button">-</button>
-               <button class="btn btn-danger" style="height: 40px;margin: 10px;" onclick="addQnty()" type="button">+</button>
-               
-
-            </div><br>
-            <label for="">Qnty</label>
-            <input type="number" required name="qnty" value="1" id="qnty" class="form-control"><br>
-           
-            <input type="text" required name="name" placeholder="Fullname*" class="form-control"><br>
-            <input type="number" required name="phone" placeholder="Phone*" class="form-control"><br>
-            <input type="text" required name="address" placeholder="Address*" class="form-control"><br>
-            <label for="">No of Days Wanted</label>
-            <input type="number" required name="no_of_days" value="1" placeholder="No of Days Wanted*" class="form-control"><br>
-
-            <!-- <label for="">Total Cost (Rs)</label>
-            <input type="number" readonly name="cost" value="{{item.rent_per_day}}" id="cost" class="form-control"><br> -->
-
-            <button class="btn btn-danger w-100" style="margin-bottom: 15px;">Place Order</button>
+            <input type="text" required name="username" placeholder="Username*" class="form-control">
+            <input type="password" required name="password" placeholder="Password*" class="form-control">
+            <input type="password" required name="password2" placeholder="Confrim Password*" class="form-control">
+            <input type="text" required name="first_name" placeholder="First Name*" class="form-control">
+            <input type="text" name="last_name" placeholder="Last Name" class="form-control">
+            <input type="email" required name="email" placeholder="Email*" class="form-control">
+            <input type="text" required name="location" placeholder="Location*" class="form-control">
+            <input type="text" name="domain" placeholder="Domain" class="form-control">
+            <label for="Role">Role</label>
+            <select name="role" class="form-control">
+               <option value="CUSTOMER">CUSTOMER</option>
+               <option value="ARCHITECT">ARCHITECT</option>
+               <option value="CONTRACTOR">CONTRACTOR</option>
+            </select>
+            <input type="text" name="company_name" placeholder="Company Name" class="form-control">
+            
             <br>
+            <button class="btn btn-danger w-100" style="margin-bottom: 15px;">Signup</button>
+            <br>
+            <a href="/accounts/login/" style="color: dodgerblue;">Login to your Account</a>
          </form>
 
          <br><br><br><br>
       </div>
-
-      <script>
-        function addQnty() {
-            var qnty = parseInt(document.getElementById('qnty').value);
-            var cost = parseFloat(document.getElementById('cost').value);
-            document.getElementById('qnty').value = qnty + 1;
-            document.getElementById('cost').value = (qnty) * cost;
-         }
-
-         function removeQnty() {
-            var qnty = parseInt(document.getElementById('qnty').value);
-            var cost = parseFloat(document.getElementById('cost').value);
-            if (qnty > 1) {
-               document.getElementById('qnty').value = qnty - 1;
-               document.getElementById('cost').value = (qnty - 1) + cost;
-            }
-         }
-      </script>
-
-      {% if err %}
-      <script>
-         alert('{{err}}');
-      </script>
-      {% endif %}
       
       <!-- footer -->
       <footer>
@@ -190,11 +165,12 @@
       {% if err %}
       <script>
           alert('{{err}}');
-          location.href='/accounts/login/';
+          location.href='/accounts/signup';
       </script>
       {% endif %}
-    
       
+
+
       <!-- end footer -->
       <!-- Javascript files-->
       <script src="{% static 'js/jquery.min.js' %}"></script>

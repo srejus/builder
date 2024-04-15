@@ -31,7 +31,8 @@ class RentItemsView(View):
 class PlaceOrderView(View):
     def get(self,request,id):
         item = RentItems.objects.get(id=id)
-        return render(request,'address.html',{'item':item})
+        err = request.GET.get("err")
+        return render(request,'address.html',{'item':item,'err':err})
     
     def post(self,request,id):
         name = request.POST.get("name")
@@ -42,6 +43,10 @@ class PlaceOrderView(View):
 
         acc = Account.objects.get(user=request.user)
         item = RentItems.objects.get(id=id)
+
+        if qnty > item.available_quantity:
+            err = "Out of Stock!"
+            return redirect(f"/place-order/{id}?err={err}")
         RentOrder.objects.create(user=acc,item=item,quantity=qnty,no_of_days=no_of_days,name=name,phone=phone,address=address)
 
         msg = "Rent Order Placed Successfully!"
