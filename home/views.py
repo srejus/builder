@@ -44,7 +44,7 @@ class PlaceOrderView(View):
         acc = Account.objects.get(user=request.user)
         item = RentItems.objects.get(id=id)
 
-        if qnty > item.available_quantity:
+        if int(qnty) > item.available_quantity:
             err = "Out of Stock!"
             return redirect(f"/place-order/{id}?err={err}")
         RentOrder.objects.create(user=acc,item=item,quantity=qnty,no_of_days=no_of_days,name=name,phone=phone,address=address)
