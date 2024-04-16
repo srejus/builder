@@ -80,6 +80,7 @@
       <br><br><br>
       <div class="main">
          <div class="mrow">
+            {% if works %}
             {% for i in works %}
             <div style="width: 300px;" class="card p-3 m-3">
                <img src="/static/images/{{i.cover}}" style="width: 100%;
@@ -87,6 +88,14 @@
                <p>{{i.desc}}</p>
             </div>
             {% endfor %}
+            {% else %}
+
+               <div style="display: flex;align-items: center;justify-content: center;width: 100%;">
+                  <h1>No Works Found!</h1>
+
+               </div>
+
+            {% endif %}
          </div>
       </div>
       <br><br><br>

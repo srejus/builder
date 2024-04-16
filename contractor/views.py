@@ -75,6 +75,14 @@ class ConHomeView(View):
     
 
 @method_decorator(login_required,name='dispatch')
+class ConViewWorkView(View):
+    def get(self,request,id=None):
+        acc = Account.objects.get(id=id)
+        works = Works.objects.filter(user=acc)
+        return render(request,'view_works.html',{'works':works})
+    
+
+@method_decorator(login_required,name='dispatch')
 class ConAppoitmentView(View):
     def get(self,request):
         acc = Account.objects.get(user=request.user)
