@@ -81,8 +81,11 @@
       <div class="main">
          <div class="mrow">
             {% for i in works %}
-               <img src="/static/images/{{i.cover}}" style="width: 500px;
-               height: 500px;object-fit: cover;padding: 15px;" alt="">
+            <div style="width: 300px;" class="card p-3 m-3">
+               <img src="/static/images/{{i.cover}}" style="width: 100%;
+               height: 250px;object-fit: cover;padding: 15px;" alt="">
+               <p>{{i.desc}}</p>
+            </div>
             {% endfor %}
          </div>
       </div>
