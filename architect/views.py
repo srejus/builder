@@ -72,10 +72,15 @@ class BuyPlanView(View):
 class BuyPlanSuccessView(View):
     def get(self,request):
         plan_id = request.GET.get("plan_id")
-        plan = Plans.objects.get(id=plan_id)
-        plan.total_downloads = plan.total_downloads+1
-        plan.save()
-        return render(request,'success.html',{'plan':plan})
+        try:
+            plan = Plans.objects.get(id=plan_id)
+            plan.total_downloads = plan.total_downloads+1
+            plan.save()
+            return render(request,'success.html',{'plan':plan})
+        except:
+            msg = "Rent Order Placed Successfully!"
+            return redirect(f"/?msg={msg}")
+        
     
 
 @method_decorator(login_required,name='dispatch')

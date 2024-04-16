@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
 
 from .models import *
+from project.utils import create_stripe_payment_link
+
 
 # Create your views here.
 class IndexView(View):
@@ -49,6 +51,18 @@ class PlaceOrderView(View):
             return redirect(f"/place-order/{id}?err={err}")
         RentOrder.objects.create(user=acc,item=item,quantity=qnty,no_of_days=no_of_days,name=name,phone=phone,address=address)
 
+        item.available_quantity -= int(qnty)
+        item.save()
+
+        total = int(qnty)*item.rent_per_day
+        total = total*int(no_of_days)
+
+        pay_url = create_stripe_payment_link(total,'')
+
+        if pay_url:
+            return redirect(pay_url)
+
+        
         msg = "Rent Order Placed Successfully!"
         return redirect(f"/?msg={msg}")
 

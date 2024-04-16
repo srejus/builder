@@ -73,6 +73,8 @@
 
       <div class="mai">
          <br><br><br><br><br><br>
+
+            {% if plan %}
             <div>
                <h1 style="text-align: center;font-size: 35px;"><b>Thanks for Buying the Plan</b></h1><br>
                <div style="width: 100%;;display: flex;justify-content: center;">
@@ -81,6 +83,20 @@
                   </button>
                </div>
             </div>
+            {% else %}
+            <div>
+               <h1 style="text-align: center;font-size: 35px;"><b>Thanks for Buying the Plan</b></h1><br>
+               <div style="width: 100%;;display: flex;justify-content: center;">
+                  <button class="btn btn-danger" style="align-items: center;">
+                     <a href="/static/images/{{plan.plan}}" style="color:white" download><i class="fa fa-download"></i>&nbsp;&nbsp;&nbsp;   Download Plan</a>
+                  </button>
+               </div>
+            </div>
+            {% endif %}
+
+
+
+
          <br><br><br><br><br><br>
       </div>
       
